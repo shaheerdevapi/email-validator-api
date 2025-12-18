@@ -1,2 +1,20 @@
-# email-validator-api
-A simple FastAPI service to validate email addresses, detect disposable domains, and reduce fake sign‑ups. Built for SaaS apps and deployable on Render free tier
+# Email Validation API
+
+Professional email validation API with disposable domain detection.
+
+## Features
+- ✅ Email format validation
+- ✅ Disposable domain detection
+- ✅ Quality scoring
+- ✅ Batch processing
+- ✅ RESTful API
+- ✅ Auto-generated documentation
+
+## Quick Start
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Run API
+cd app
+python main.py

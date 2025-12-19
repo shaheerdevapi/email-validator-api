@@ -1,3 +1,6 @@
+cd /data/data/com.termux/files/home/email-api
+
+cat > .github/workflows/python-app.yml << 'EOF'
 name: Python application
 
 on:
@@ -21,9 +24,13 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install fastapi uvicorn
+        pip install Flask==3.1.2
         
     - name: Test API
       run: |
+        python -c "from flask import Flask; print('✅ Flask installed successfully')"
         cd app
-        python -c "from main import app; print('✅ API is working')"
+        python -c "from main import app; print('✅ API import successful')"
+EOF
+
+

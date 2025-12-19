@@ -1,6 +1,3 @@
-cp main.py main.py.error
-
-cat > main.py << 'EOF'
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
@@ -48,4 +45,3 @@ def health():
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
-EOF

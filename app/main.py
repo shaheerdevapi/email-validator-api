@@ -1,20 +1,11 @@
-from fastapi import FastAPI, HTTPException, Query
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi import FastAPI, Query
 import uvicorn
 import re
 
 app = FastAPI()
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
 DISPOSABLE_DOMAINS = {
-    "tempmail.com", "mailinator.com", "yopmail.com",
-    "10minutemail.com", "guerrillamail.com", "trashmail.com"
+    "tempmail.com", "mailinator.com", "yopmail.com"
 }
 
 @app.get("/")

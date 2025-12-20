@@ -1,5 +1,4 @@
-fastapi
-uvicorn
-email-validator
-dnspython
-pydantic
+cd /data/data/com.termux/files/home/email-api/app
+cat > requirements.txt
+Flask==3.1.2
+gunicorn==21.2.0

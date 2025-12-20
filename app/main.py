@@ -185,6 +185,5 @@ def not_found(error):
 def server_error(error):
     return jsonify({"error": "Internal server error"}), 500
     
-handler = app
 def handler(environ, start_response):
     return app(environ, start_response)

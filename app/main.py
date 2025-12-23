@@ -3,7 +3,7 @@ import re
 from datetime import datetime
 import dns.resolver
 
-from middleware import api_key_middleware  # Add the middleware
+from middleware import api_key_middleware
 
 app = Flask(__name__)
 
@@ -16,8 +16,14 @@ DISPOSABLE_DOMAINS = {
 }
 
 ROLE_PREFIXES = {"admin", "info", "support", "sales", "contact"}
+DOMAIN_CACHE = {}
 
-DOMAIN_CACHE = {}  # Cache for MX + disposable
+PLANS = {
+    "free": {"requests_per_day": 100, "strict_mode": False},
+    "basic": {"requests_per_month": 10000, "strict_mode": True},
+    "pro": {"requests_per_month": 50000, "strict_mode": True},
+    "enterprise": {"requests_per_month": "Custom", "strict_mode": True}
+}
 
 def validate_email_format(email):
     pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
@@ -88,7 +94,12 @@ def home():
                 "/stats": "API statistics",
                 "/domains": "List disposable domains"
             }
-
+        },
+        "pricing": {
+            "free": "100 requests/day",
+            "basic": "$9.99/month - 10,000 requests",
+            "pro": "$29.99/month - 50,000 requests",
+            "enterprise": "Custom pricing"
         },
         "support": "contact@example.com"
     })
@@ -96,7 +107,9 @@ def home():
 @app.route('/verify')
 def verify_email():
     email = request.args.get('email', '').strip()
-    strict = request.args.get('strict', 'false').lower() == 'true'
+    plan = request.args.get('plan', 'free')
+    strict = request.args.get('strict', 'false').lower() == 'true' and PLANS.get(plan, {}).get('strict_mode', False)
+
     if not email:
         return jsonify({"error": "Email parameter is required"}), 400
     if len(email) > 254:
@@ -214,7 +227,8 @@ def get_stats():
             "role_email_detection",
             "risk_level_scoring",
             "bulk_processing",
-            "real_time_validation"
+            "real_time_validation",
+            "strict_mode_for_paid_plans"
         ],
         "rate_limits": {
             "free": "100 requests/day",

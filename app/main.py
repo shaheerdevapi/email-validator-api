@@ -88,12 +88,7 @@ def home():
                 "/stats": "API statistics",
                 "/domains": "List disposable domains"
             }
-        },
-        "pricing": {
-            "free": "100 requests/day",
-            "basic": "$9.99/month - 10,000 requests",
-            "pro": "$29.99/month - 50,000 requests",
-            "enterprise": "Custom pricing"
+
         },
         "support": "contact@example.com"
     })
